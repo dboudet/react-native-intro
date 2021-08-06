@@ -1,51 +1,35 @@
-import { StatusBar } from "expo-status-bar"
+import "react-native-gesture-handler"
 import React from "react"
-import {
-  Alert,
-  Button,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  View,
-  ImageBackground,
-} from "react-native"
-import Box from "./components/Box"
-import styles from "./styles"
+import { NavigationContainer } from "@react-navigation/native"
+import { createStackNavigator } from "@react-navigation/stack"
 
-const image =   {uri: 'https://media.istockphoto.com/photos/blurred-blue-sky-and-sea-with-bokeh-light-picture-id1253837586?b=1&k=6&m=1253837586&s=170667a&w=0&h=6K4nC5sNKH7Wv8-KB4bbgl_Zg5x44fyWi6zgmufXWno='}
+import Home from "./screens/HomeScreen"
+import RestaurantDetails from "./screens/RestaurantDetailsScreen"
+import AddNewScreen from "./screens/AddNewScreen"
+
+const Stack = createStackNavigator()
 
 export default function App() {
-  const students = [
-    { name: "Dan", age: 39 },
-    { name: "Emily", age: 29 },
-    { name: "Chris", age: 29 },
-    { name: "Zach", age: 19 },
-    { name: "Matt", age: 19 },
-    { name: "Val", age: 29 },
-    { name: "Christian", age: 29 },
-    { name: "Luiz", age: 29 },
-  ]
 
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.customText}>Header</Text>
-        <View style={styles.container}>
-          {students.map((student) => {
-            return <Box entireStudent={student} />
-          })}
-        </View>
-      <ImageBackground source={image} resizeMode='cover' style={{...styles.container}}>
-        </ImageBackground>
-
-        <Button
-          onPress={() => Alert.alert("Simple button pressed.")}
-          title="Show Message"
-          color="#841584"
-          accessibilityLabel="Press button to display message."
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name='Home'
+          component={Home}
+          options={{title:'Recommended Restaurants'}}
         />
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </ScrollView>
+        <Stack.Screen
+          name='RestaurantDetails'
+          component={RestaurantDetails}
+          options={{title:'Restaurant Details'}}
+        />
+        <Stack.Screen
+          name='AddNewRestaurant'
+          component={AddNewScreen}
+          options={{title:'Add New Restaurant'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
